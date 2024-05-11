@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1004909315601",
+    "project_id": "fitnessvesaglikuygulamasi",
+    "storage_bucket": "fitnessvesaglikuygulamasi.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1004909315601:android:4117036876879b6a8cd3b0",
+        "android_client_info": {
+          "package_name": "com.sample.fitnessvesaglikuygulamasi"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyASGD2B6eDIONsThd4-41jXQLHtXuZRHY8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
