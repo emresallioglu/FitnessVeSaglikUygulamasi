@@ -51,7 +51,6 @@ class LoginActivity : AppCompatActivity() {
                             userLoggedIn = true
 
                             val user = User(
-                                id = document.id,
                                 name = document.getString("name") ?: "",
                                 password = document.getString("password") ?: "",
                                 email = document.getString("email") ?: ""

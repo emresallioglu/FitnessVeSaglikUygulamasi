@@ -30,7 +30,7 @@ class RegisterActivity : AppCompatActivity() {
             // Giriş doğrulamasını yapın (Boş alan kontrolü, email formatı vb.)
             // ...
 
-            val user = User( "",name,email, password)
+            val user = User( name,email, password)
 
             val myUuid = UUID.randomUUID()
             val myUuidAsString = myUuid.toString()
