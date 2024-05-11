@@ -2,51 +2,41 @@ package com.sample.fitnessvesaglikuygulamasi
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.toObject
-import com.sample.fitnessvesaglikuygulamasi.databinding.ActivityMainBinding
+import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.tabs.TabLayout
+
 
 class MainActivity: AppCompatActivity() {
-    private lateinit var binding: ActivityMainBinding
-    private lateinit var db: FirebaseFirestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        db = FirebaseFirestore.getInstance()
-
-        // Kullanıcı bilgilerini al ve Ana Sayfayı güncelle
-        getUserInfoAndSetupUI()
+        setContentView(R.layout.activity_main)
+        setUpTabBar()
     }
 
-    private fun getUserInfoAndSetupUI() {
-        val currentUserId = FirebaseAuth.getInstance().currentUser?.uid ?: return // Kullanıcı oturum açmamışsa çıkış
+    private fun setUpTabBar() {
+        val viewPager = findViewById<ViewPager2>(R.id.viewPager)
+        val tabLayout = findViewById<TabLayout>(R.id.tabLayout)
+        val adapter = TabPageAdapter(this, tabLayout.tabCount)
+        viewPager.adapter = adapter
 
-        db.collection("users").document(currentUserId)
-            .get()
-            .addOnSuccessListener { documentSnapshot ->
-                if (documentSnapshot.exists()) {
-                    val user = documentSnapshot.toObject<User>()
-                    // Kullanıcı adıyla karşılama mesajını güncelle
-                    
-                    binding.welcomeTextView.text = if (user?.name != null) {
-                        "Merhaba, ${user.email}"
-                    } else {
-                        "Merhaba" // Veya hata mesajı
-                    }
+        viewPager.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback(){
+            override fun onPageSelected(position: Int) {
+                tabLayout.selectTab(tabLayout.getTabAt(position))
+            }
+        })
 
-                    // TODO: Hedefleri Firestore'dan al ve RecyclerView'da göster
-                } else {
-                    // Kullanıcı verisi bulunamadıysa hata mesajı gösterin
-                    // ...
-                }
+        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener
+        {
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                viewPager.currentItem = tab.position
             }
-            .addOnFailureListener { exception ->
-                // Hata oluştuysa hata mesajı gösterin
-                // ...
+
+            override fun onTabUnselected(p0: TabLayout.Tab) {
             }
+
+            override fun onTabReselected(p0: TabLayout.Tab) {
+            }
+        })
     }
 }

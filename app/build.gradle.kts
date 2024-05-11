@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.jetbrainsKotlinAndroid)
     id("com.android.application")
     id("com.google.gms.google-services")
+    "kotlin-android-extension"
 
 }
 

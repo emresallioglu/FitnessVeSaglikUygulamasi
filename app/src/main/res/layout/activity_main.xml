@@ -1,44 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity">
-
-    <TextView
-        android:id="@+id/welcomeTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Merhaba, [Kullanıcı Adı]"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/goalsTextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/goalsTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hedeflerin"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@id/goalsRecyclerView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/welcomeTextView" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/goalsRecyclerView"
+    tools:context=".MainActivity">
+    
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
+        android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/goalsTextView"
-        tools:listitem="@layout/goal_item" />
-    <!-- goal_item.xml dosyasını hedef bilgilerini göstermek için oluşturun -->
+        android:layout_above="@+id/tabLayout"/>
+    
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:tabMaxWidth="0dp"
+        app:tabGravity="fill"
+        app:tabMode="fixed"
+        android:background="@color/tabBackgroundColor"
+        app:tabIndicatorColor="?colorPrimary"
+        android:layout_alignParentBottom="true">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Home" />
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Activity"/>
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Goals"/>
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nutrition"/>
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sleep"/>
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Settings"/>
+    </com.google.android.material.tabs.TabLayout>
+
+</RelativeLayout>

@@ -1,15 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/base_navigation"
-    app:startDestination="@id/mainActivity">
-
-    <activity
-        android:id="@+id/mainActivity"
-        android:name="com.sample.fitnessvesaglikuygulamasi.LoginActivity"
-        android:label="MainActivity" />
-    <activity
-        android:id="@+id/registerActivity"
-        android:name="com.sample.fitnessvesaglikuygulamasi.RegisterActivity"
-        android:label="RegisterActivity" />
-</navigation>
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/base_navigation" />
