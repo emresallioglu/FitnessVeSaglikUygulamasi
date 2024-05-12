@@ -3,13 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#B497DD"
-    tools:context=".ActivityFragment">
+    tools:context=".AddActivityFragment">
 
+    <!-- TODO: Update blank fragment layout -->
     <Button
-        android:id="@+id/btn_add_activity"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Aktivite Ekle"/>
+        android:id="@+id/addButton" />
 
 </FrameLayout>

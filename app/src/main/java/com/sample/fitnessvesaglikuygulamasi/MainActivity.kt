@@ -1,6 +1,7 @@
 package com.sample.fitnessvesaglikuygulamasi
 
 import android.os.Bundle
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
@@ -8,10 +9,14 @@ import com.google.android.material.tabs.TabLayout
 
 class MainActivity: AppCompatActivity() {
 
+    private lateinit var addButton: Button
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setUpTabBar()
+
+
     }
 
     private fun setUpTabBar() {
@@ -38,5 +43,7 @@ class MainActivity: AppCompatActivity() {
             override fun onTabReselected(p0: TabLayout.Tab) {
             }
         })
+
+
     }
 }
