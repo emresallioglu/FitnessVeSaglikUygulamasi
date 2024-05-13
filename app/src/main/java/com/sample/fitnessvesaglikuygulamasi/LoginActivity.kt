@@ -29,7 +29,7 @@ class LoginActivity : AppCompatActivity() {
 
         }
 
-        binding.button.setOnClickListener{
+        /*binding.button.setOnClickListener{
             val db = FirebaseFirestore.getInstance()
 
             val activities = listOf(
@@ -65,7 +65,7 @@ class LoginActivity : AppCompatActivity() {
                         println("Error adding activity: $e")
                     }
             }
-        }
+        }*/
 
 
 
@@ -90,6 +90,7 @@ class LoginActivity : AppCompatActivity() {
                             userLoggedIn = true
 
                             GlobalVariables.currentUser = User(
+                                id = document.id,
                                 name = document.getString("name") ?: "",
                                 password = document.getString("password") ?: "",
                                 email = document.getString("email") ?: ""

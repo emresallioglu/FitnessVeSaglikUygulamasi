@@ -10,10 +10,38 @@ class ActivityServices {
         val querySnapshot = FirebaseFirestore.getInstance().collection("activities").get().await()
         for (document in querySnapshot.documents) {
             val activity = document.toObject(Activity::class.java)
+            activity!!.activity_id = document.id
             activity?.let {
                 activities.add(it)
             }
         }
         return activities
+    }
+
+    suspend fun getActivityByUserId(userId: String): List<ActivityDetail> {
+
+        val activities = this.getActivities()
+        val activityDetails = mutableListOf<ActivityDetail>()
+        val querySnapshot = FirebaseFirestore.getInstance().collection("user_activities").whereEqualTo("userId",userId).get().await()
+        for (document in querySnapshot.documents) {
+            for (activity in activities){
+
+                val userActivity = document.toObject(UserActivity::class.java)
+
+
+                    if((activity.activity_id == userActivity!!.activityId) && (userActivity.userId == GlobalVariables.currentUser?.id))
+                    {
+                        var newActivityDetail = ActivityDetail()
+                        newActivityDetail.activity = activity;
+                        newActivityDetail.user = GlobalVariables.currentUser
+                        activityDetails.add(newActivityDetail)
+
+                    }
+
+
+            }
+
+        }
+        return activityDetails
     }
 }

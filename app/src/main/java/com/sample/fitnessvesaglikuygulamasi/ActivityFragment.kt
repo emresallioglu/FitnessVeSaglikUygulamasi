@@ -7,19 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
-import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
-import kotlinx.coroutines.launch
-import com.sample.fitnessvesaglikuygulamasi.ActivityServices
-
-
+import androidx.fragment.app.FragmentTransaction
+import kotlinx.coroutines.runBlocking
 
 class ActivityFragment : Fragment() {
 
     private lateinit var addButton: Button
+    val activityServices = ActivityServices()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,16 +21,24 @@ class ActivityFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_activity, container, false)
 
-        // Butonu bulun
-        val button = view.findViewById<Button>(R.id.btn_add_activity)
+        // Button tanımlama
+        val button = view.findViewById<Button>(R.id.add_button)
 
-        // Butona OnClickListener ekleyin
+// Button click listener
         button.setOnClickListener {
-            // Navigation Controller'ı alın
-            val navController = findNavController()
+            // Hedef activity'nin intenti
+            /*val intent = Intent(activity, AddActivityActivity::class.java)
 
-            // Hedef fragment'a gidin (action ID'sini kullanarak)
-            navController.navigate(R.id.action_activityFragment_to_addActivityFragment)
+            // Ekstra veri göndermek için
+            intent.putExtra("anahtar", "değer")
+
+            // Activity'yi başlat
+            startActivity(intent)*/
+
+            runBlocking {
+                val activityDetails = activityServices.getActivityByUserId(GlobalVariables.currentUser?.id
+                    ?: "")
+            }
         }
 
         return view
