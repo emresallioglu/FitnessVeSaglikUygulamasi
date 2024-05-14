@@ -12,7 +12,6 @@ import java.util.UUID
 class RegisterActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegisterBinding
-    private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseFirestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,14 +22,17 @@ class RegisterActivity : AppCompatActivity() {
         db = FirebaseFirestore.getInstance()
 
         binding.registerButton.setOnClickListener {
-            val name = binding.usernameEditText.text.toString()
+            val userName = binding.usernameEditText.text.toString()
+            val name = binding.nameEditText.text.toString()
+            val surName = binding.surnameEditText.text.toString()
             val email = binding.emailEditText.text.toString()
             val password = binding.passwordEditText.text.toString()
+
 
             // Giriş doğrulamasını yapın (Boş alan kontrolü, email formatı vb.)
             // ...
 
-            val user = User("", name,email, password)
+            val user = User("",userName,name, surName,email, password)
 
             val myUuid = UUID.randomUUID()
             val myUuidAsString = myUuid.toString()

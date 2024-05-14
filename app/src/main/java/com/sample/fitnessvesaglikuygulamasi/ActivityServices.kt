@@ -19,28 +19,27 @@ class ActivityServices {
     }
 
     suspend fun getActivityByUserId(userId: String): List<ActivityDetail> {
-
         val activities = this.getActivities()
         val activityDetails = mutableListOf<ActivityDetail>()
-        val querySnapshot = FirebaseFirestore.getInstance().collection("user_activities").whereEqualTo("userId",userId).get().await()
+        val querySnapshot = FirebaseFirestore.getInstance().collection("user_activities")
+            .whereEqualTo("userId", userId).get().await()
+
         for (document in querySnapshot.documents) {
-            for (activity in activities){
-
+            for (activity in activities) {
                 val userActivity = document.toObject(UserActivity::class.java)
+                if ((activity.activity_id == userActivity!!.activityId) &&
+                    (userActivity.userId == GlobalVariables.currentUser?.id)) {
 
+                    // caloriesBurned değerini ata
+                    var newActivityDetail = ActivityDetail(
+                        activity = activity,
+                        user = GlobalVariables.currentUser,
+                        caloriesBurned = userActivity.caloriesBurned // Yeni özellik
+                    )
 
-                    if((activity.activity_id == userActivity!!.activityId) && (userActivity.userId == GlobalVariables.currentUser?.id))
-                    {
-                        var newActivityDetail = ActivityDetail()
-                        newActivityDetail.activity = activity;
-                        newActivityDetail.user = GlobalVariables.currentUser
-                        activityDetails.add(newActivityDetail)
-
-                    }
-
-
+                    activityDetails.add(newActivityDetail)
+                }
             }
-
         }
         return activityDetails
     }

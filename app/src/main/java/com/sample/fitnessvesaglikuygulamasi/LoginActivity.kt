@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.google.firebase.Firebase
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.firestore
 import com.sample.fitnessvesaglikuygulamasi.databinding.ActivityLoginBinding
 
@@ -80,7 +79,7 @@ class LoginActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            db.collection("users").whereEqualTo("name", username)
+            db.collection("users").whereEqualTo("userName", username)
                 .get()
                 .addOnSuccessListener { documents ->
                     for (document in documents) {

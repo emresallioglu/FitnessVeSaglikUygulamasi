@@ -1,7 +1,7 @@
 package com.sample.fitnessvesaglikuygulamasi
 
-class ActivityDetail {
-    var user: User? = null
-    var activity: Activity? = null
-
-}
+data class ActivityDetail(
+    var activity: Activity? = null,
+    var user: User? = null,
+    var caloriesBurned: Float = 0f // Yeni özellik
+)
