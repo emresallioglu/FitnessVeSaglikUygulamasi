@@ -13,6 +13,9 @@
         android:theme="@style/Theme.FitnessVeSaglikUygulamasi"
         tools:targetApi="31">
         <activity
+            android:name=".AddGoalActivity"
+            android:exported="false" />
+        <activity
             android:name=".AddActivityActivity"
             android:exported="false" />
         <activity
@@ -31,7 +34,6 @@
 
             <!-- Intent filtreleri veya diğer özellikler ekleyebilirsiniz -->
         </activity>
-
     </application>
 
 </manifest>
