@@ -7,6 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class GoalsFragment : Fragment() {
 
@@ -29,6 +32,14 @@ class GoalsFragment : Fragment() {
             intent.putExtra("anahtar", "değer")
             // Activity'yi başlat
             startActivity(intent)
+            /*GlobalScope.launch(Dispatchers.Main) {
+                val goalList = GoalServices().getGoalByUserId(GlobalVariables.currentUser?.id ?: "")
+
+                // Test amaçlı, goalList'in içeriğini logcat'e yazdırabiliriz
+                goalList.forEach { goal ->
+                    println("Goal: ${goal.goal}, Description: ${goal.goal_description}")
+                }
+            }*/
         }
 
         return view
