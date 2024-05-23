@@ -7,24 +7,19 @@
     android:background="#9AAF9C"
     tools:context=".GoalsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/goals_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Hedef ekleyecek tarih girecek, kalan gün anasayfada yazabilir."
-        android:textSize="30sp"
-        android:textAlignment="center"
-        android:gravity="center"/>
-
+        android:padding="16dp"
+        tools:listitem="@layout/item_goal" />
 
     <Button
         android:id="@+id/add_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
         android:layout_marginBottom="16dp"
-        android:text="Hedef Ekle"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:text="Hedef Ekle" />
 
 </FrameLayout>

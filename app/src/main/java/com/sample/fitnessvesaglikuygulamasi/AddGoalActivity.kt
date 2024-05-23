@@ -39,7 +39,6 @@ class AddGoalActivity : AppCompatActivity() {
         button1 = findViewById(R.id.button1)
         button2 = findViewById(R.id.button2)
 
-        // Tarih Seçme 1 için DatePickerDialog Oluşturma
         button1.setOnClickListener {
             val datePickerDialog = DatePickerDialog(
                 this,
@@ -62,7 +61,6 @@ class AddGoalActivity : AppCompatActivity() {
             datePickerDialog.show()
         }
 
-        // Tarih Seçme 2 için DatePickerDialog Oluşturma
         button2.setOnClickListener {
             val datePickerDialog = DatePickerDialog(
                 this,
@@ -85,7 +83,6 @@ class AddGoalActivity : AppCompatActivity() {
             datePickerDialog.show()
         }
 
-        // Kaydet Butonu İşlemi
         findViewById<Button>(R.id.saveButton).setOnClickListener {
             if (calendar1.timeInMillis < System.currentTimeMillis()) {
                 Toast.makeText(this, "Başlangıç tarihi bugünden önce olamaz.", Toast.LENGTH_SHORT).show()
@@ -124,24 +121,23 @@ class AddGoalActivity : AppCompatActivity() {
             goal = goal,
             goal_description = goalDescription,
             startDate = SimpleDateFormat("yyyy-MM-dd").parse(formattedStartDate),
-            endDate = SimpleDateFormat("yyyy-MM-dd").parse(formattedEndDate)
+            endDate = SimpleDateFormat("yyyy-MM-dd").parse(formattedEndDate),
+            isCompleted = false // Varsayılan olarak yeni eklenen hedef tamamlanmamış olacak
         )
 
-        // Get the Firestore database instance
         val db = FirebaseFirestore.getInstance()
-
-        // Add the user goal to the Firestore collection
         db.collection("user_goals")
             .add(userGoal)
             .addOnSuccessListener { documentReference ->
-                // Goal saved successfully
                 Toast.makeText(this, "Hedef kaydedildi!", Toast.LENGTH_SHORT).show()
                 finish() // Close the activity after saving
             }
             .addOnFailureListener { exception ->
-                // Handle error in saving the goal
                 Toast.makeText(this, "Hedef kaydedilirken hata oluştu.", Toast.LENGTH_SHORT).show()
                 Log.e("SaveGoal", "Error saving user goal:", exception)
             }
     }
+
 }
+
+

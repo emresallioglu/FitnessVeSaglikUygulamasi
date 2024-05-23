@@ -5,5 +5,10 @@
 
     <string name="activity_name">Aktivite Adı</string>
 
+    <string-array name="gender_array">
+        <item>Erkek</item>
+        <item>Kadın</item>
+    </string-array>
+
 
 </resources>

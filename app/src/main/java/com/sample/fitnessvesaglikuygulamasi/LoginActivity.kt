@@ -90,9 +90,14 @@ class LoginActivity : AppCompatActivity() {
 
                             GlobalVariables.currentUser = User(
                                 id = document.id,
+                                userName = document.getString("username") ?: "",
                                 name = document.getString("name") ?: "",
+                                surname = document.getString("surname") ?: "",
+                                email = document.getString("email") ?: "",
                                 password = document.getString("password") ?: "",
-                                email = document.getString("email") ?: ""
+                                height = document.getDouble("height") ?: 0.0,
+                                weight = document.getDouble("weight") ?: 0.0,
+                                gender = document.getString("gender") ?: ""
                             )
 
                             // Store user information, navigate to main app interface
