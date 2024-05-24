@@ -1,6 +1,7 @@
 package com.sample.fitnessvesaglikuygulamasi
 
 import android.content.ContentValues.TAG
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -40,19 +41,29 @@ class RegisterActivity : AppCompatActivity() {
             val height = binding.heightEditText.text.toString().toDoubleOrNull() ?: 0.0
             val weight = binding.weightEditText.text.toString().toDoubleOrNull() ?: 0.0
             val gender = binding.genderSpinner.selectedItem.toString()
+            //val age = binding.ageEditText.text.toString().toIntOrNull() ?: 0 // Yaş alanı eklendi
 
             // Giriş doğrulamasını yapın (Boş alan kontrolü, email formatı vb.)
             // ...
 
-            val user = User("", userName, name, surName, email, password, height, weight, gender)
+            val user = User("", userName, name, surName,20, email, password, height, weight, gender) // Yaş alanı eklendi
 
             val myUuid = UUID.randomUUID()
             val myUuidAsString = myUuid.toString()
 
             db.collection("users").document(myUuidAsString)
                 .set(user)
-                .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully written!") }
-                .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
+                .addOnSuccessListener {
+                    Log.d(TAG, "DocumentSnapshot successfully written!")
+                    val intent = Intent(this, LoginActivity::class.java)
+                    startActivity(intent)
+                    finish() // RegisterActivity'yi kapatmak için
+                }
+                .addOnFailureListener { e ->
+                    Log.w(TAG, "Error writing document", e)
+                    // Başarısızlık durumunda gerekli işlemler yapılabilir
+                }
+
         }
         // TODO: Kayıt ol butonuna tıklandığında Firebase ile kullanıcı oluşturulacak
     }

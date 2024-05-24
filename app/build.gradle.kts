@@ -65,5 +65,4 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1") // Sürüm değişebilir
     implementation (platform("com.google.firebase:firebase-bom:32.2.0")) // Örnek versiyon
     implementation ("com.google.firebase:firebase-firestore-ktx")
-
 }

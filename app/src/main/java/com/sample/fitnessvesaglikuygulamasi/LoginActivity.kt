@@ -97,7 +97,8 @@ class LoginActivity : AppCompatActivity() {
                                 password = document.getString("password") ?: "",
                                 height = document.getDouble("height") ?: 0.0,
                                 weight = document.getDouble("weight") ?: 0.0,
-                                gender = document.getString("gender") ?: ""
+                                gender = document.getString("gender") ?: "",
+                                age = document.getLong("age")?.toInt() ?: 0
                             )
 
                             // Store user information, navigate to main app interface
