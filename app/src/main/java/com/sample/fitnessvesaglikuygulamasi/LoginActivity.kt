@@ -90,7 +90,7 @@ class LoginActivity : AppCompatActivity() {
 
                             GlobalVariables.currentUser = User(
                                 id = document.id,
-                                userName = document.getString("username") ?: "",
+                                userName = document.getString("userName") ?: "",
                                 name = document.getString("name") ?: "",
                                 surname = document.getString("surname") ?: "",
                                 email = document.getString("email") ?: "",

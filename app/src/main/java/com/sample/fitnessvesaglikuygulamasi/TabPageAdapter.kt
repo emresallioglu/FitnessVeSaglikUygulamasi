@@ -16,7 +16,7 @@ class TabPageAdapter(activity: FragmentActivity, private val tabCount: Int): Fra
             2 -> GoalsFragment()
             3 -> NutritionFragment()
             4 -> SleepFragment()
-            5 -> SettingsFragment()
+            5 -> ProfileFragment()
             else -> HomeFragment()
 
         }

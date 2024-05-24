@@ -3,16 +3,64 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#B2E17C"
+    android:background="#FFEB3B"
     tools:context=".SleepFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Sleep Fragment"
-        android:textSize="30sp"
-        android:textAlignment="center"
-        android:gravity="center" />
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:gravity="center">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Uyku Zamanı"
+            android:textSize="18sp"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView
+            android:id="@+id/textViewSleepTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="00:00"
+            android:textSize="18sp"
+            android:layout_marginBottom="16dp"/>
+
+        <Button
+            android:id="@+id/buttonSetSleepTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Uyku Zamanını Ayarla"
+            android:layout_marginBottom="16dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Uyanma Zamanı"
+            android:textSize="18sp"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView
+            android:id="@+id/textViewWakeTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="00:00"
+            android:textSize="18sp"
+            android:layout_marginBottom="16dp"/>
+
+        <Button
+            android:id="@+id/buttonSetWakeTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Uyanma Zamanını Ayarla"
+            android:layout_marginBottom="16dp"/>
+
+        <Button
+            android:id="@+id/buttonSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Kaydet"/>
+    </LinearLayout>
 </FrameLayout>
