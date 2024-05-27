@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 class ProfileFragment : Fragment() {
@@ -18,6 +19,7 @@ class ProfileFragment : Fragment() {
     private lateinit var textViewHeight: TextView
     private lateinit var textViewWeight: TextView
     private lateinit var editButton: Button
+    private lateinit var logoutButton: Button
 
     private val db = FirebaseFirestore.getInstance()
 
@@ -32,9 +34,17 @@ class ProfileFragment : Fragment() {
         textViewHeight = view.findViewById(R.id.textViewHeight)
         textViewWeight = view.findViewById(R.id.textViewWeight)
         editButton = view.findViewById(R.id.editButton)
+        logoutButton = view.findViewById(R.id.logoutButton)
 
         editButton.setOnClickListener {
             val intent = Intent(activity, EditProfileActivity::class.java)
+            startActivity(intent)
+        }
+
+        logoutButton.setOnClickListener {
+            FirebaseAuth.getInstance().signOut()
+            val intent = Intent(activity, LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
         }
 

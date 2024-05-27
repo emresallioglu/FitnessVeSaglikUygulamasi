@@ -5,10 +5,9 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import com.google.firebase.Firebase
-import com.google.firebase.firestore.firestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.sample.fitnessvesaglikuygulamasi.databinding.ActivityLoginBinding
-
 
 class LoginActivity : AppCompatActivity() {
 
@@ -20,15 +19,69 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
         val db = Firebase.firestore
 
-        // Kayıt ol butonuna tıklandığında RegisterActivity'ye geçiş
-        binding.registerButton.setOnClickListener {
+        // Kayıt ol TextView'ine tıklandığında RegisterActivity'ye geçiş
+        binding.registerTextView.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
-
-
         }
 
-        /*binding.button.setOnClickListener{
+        binding.loginButton.setOnClickListener {
+
+            val username = binding.usernameEditText.text.toString()
+            val password = binding.passwordEditText.text.toString()
+            var userLoggedIn = false
+
+            if (username.isEmpty() || password.isEmpty()) {
+                // Display error message
+                return@setOnClickListener
+            }
+
+            db.collection("users").whereEqualTo("userName", username)
+                .get()
+                .addOnSuccessListener { documents ->
+                    for (document in documents) {
+                        val storedPassword = document.getString("password") ?: ""
+                        if (password == storedPassword) {
+                            // Successful login
+                            userLoggedIn = true
+
+                            GlobalVariables.currentUser = User(
+                                id = document.id,
+                                userName = document.getString("userName") ?: "",
+                                name = document.getString("name") ?: "",
+                                surname = document.getString("surname") ?: "",
+                                email = document.getString("email") ?: "",
+                                password = document.getString("password") ?: "",
+                                height = document.getDouble("height") ?: 0.0,
+                                weight = document.getDouble("weight") ?: 0.0,
+                                gender = document.getString("gender") ?: "",
+                                age = document.getLong("age")?.toInt() ?: 0
+                            )
+
+                            // Store user information, navigate to main app interface
+                            Log.d(TAG, "Successful login: ${GlobalVariables.currentUser}")
+                            val intent = Intent(this, MainActivity::class.java)
+                            startActivity(intent)
+                            finish()
+                            break
+                        }
+                    }
+                    if (!userLoggedIn) {
+                        // Handle failed login
+                        Log.d(TAG, "Login failed: Invalid username or password")
+                    }
+                }
+                .addOnFailureListener { exception ->
+                    // Handle database error
+                    Log.w(TAG, "Error getting documents", exception)
+                }
+        }
+    }
+}
+
+
+
+/*binding.button.setOnClickListener{
             val db = FirebaseFirestore.getInstance()
 
             val activities = listOf(
@@ -65,64 +118,3 @@ class LoginActivity : AppCompatActivity() {
                     }
             }
         }*/
-
-
-
-        binding.loginButton.setOnClickListener {
-
-            val username = binding.usernameEditText.text.toString()
-            val password = binding.passwordEditText.text.toString()
-            var userLoggedIn = false
-
-            if (username.isEmpty() || password.isEmpty()) {
-                // Display error message
-                return@setOnClickListener
-            }
-
-            db.collection("users").whereEqualTo("userName", username)
-                .get()
-                .addOnSuccessListener { documents ->
-                    for (document in documents) {
-                        val storedPassword = document.getString("password") ?: ""
-                        if (password == storedPassword) { // Assuming you have a secure password checking function
-                            // Successful login
-                            userLoggedIn = true
-
-                            GlobalVariables.currentUser = User(
-                                id = document.id,
-                                userName = document.getString("userName") ?: "",
-                                name = document.getString("name") ?: "",
-                                surname = document.getString("surname") ?: "",
-                                email = document.getString("email") ?: "",
-                                password = document.getString("password") ?: "",
-                                height = document.getDouble("height") ?: 0.0,
-                                weight = document.getDouble("weight") ?: 0.0,
-                                gender = document.getString("gender") ?: "",
-                                age = document.getLong("age")?.toInt() ?: 0
-                            )
-
-                            // Store user information, navigate to main app interface
-                            Log.d(TAG, "Successful login: ${GlobalVariables.currentUser}")
-                            // ...
-                            val intent = Intent(this, MainActivity::class.java)
-                            startActivity(intent)
-                            finish()
-                            break // Exit loop after successful login
-                        }
-                    }
-                    if (!userLoggedIn) {
-                        // Handle failed login
-                        Log.d(TAG, "Login failed: Invalid username or password")
-                        // ...
-                    }
-                }
-                .addOnFailureListener { exception ->
-                    // Handle database error
-                    Log.w(TAG, "Error getting documents", exception)
-                    // ...
-                }
-        }
-
-    }
-
-}
