@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,6 +18,7 @@ class ActivityFragment : Fragment() {
     private lateinit var addButton: Button
     private lateinit var recyclerView: RecyclerView
     private lateinit var activityAdapter: ActivityAdapter
+    private lateinit var noActivityText: TextView
     private val activityServices = ActivityServices()
 
     override fun onCreateView(
@@ -27,8 +29,15 @@ class ActivityFragment : Fragment() {
 
         addButton = view.findViewById(R.id.add_button)
         recyclerView = view.findViewById(R.id.activity_recycler_view)
+        noActivityText = view.findViewById(R.id.no_activity_text)
         recyclerView.layoutManager = LinearLayoutManager(context)
-        activityAdapter = ActivityAdapter(listOf())
+
+        activityAdapter = ActivityAdapter(listOf(), object : ActivityAdapter.OnDeleteClickListener {
+            override fun onDeleteClick(position: Int) {
+                val activityDetail = activityAdapter.activities[position]
+                activityDetail.activity?.let { deleteActivity(it.activity_id) }
+            }
+        })
         recyclerView.adapter = activityAdapter
 
         addButton.setOnClickListener {
@@ -47,7 +56,21 @@ class ActivityFragment : Fragment() {
     private fun updateActivities() {
         runBlocking {
             val activityDetails = activityServices.getActivityByUserId(GlobalVariables.currentUser?.id.toString())
+            if (activityDetails.isEmpty()) {
+                recyclerView.visibility = View.GONE
+                noActivityText.visibility = View.VISIBLE
+            } else {
+                recyclerView.visibility = View.VISIBLE
+                noActivityText.visibility = View.GONE
+            }
             activityAdapter.updateActivities(activityDetails)
+        }
+    }
+
+    private fun deleteActivity(activityId: String) {
+        runBlocking {
+            activityServices.deleteActivity(activityId)
+            updateActivities()
         }
     }
 }

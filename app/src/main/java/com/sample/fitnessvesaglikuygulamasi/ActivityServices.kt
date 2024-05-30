@@ -43,4 +43,8 @@ class ActivityServices {
         }
         return activityDetails
     }
+
+    suspend fun deleteActivity(activityId: String) {
+        FirebaseFirestore.getInstance().collection("activities").document(activityId).delete().await()
+    }
 }

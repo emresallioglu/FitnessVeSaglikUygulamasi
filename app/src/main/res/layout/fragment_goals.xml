@@ -19,7 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Hedef eklemek için butona basın"
+        android:text="Hedef eklemek için butona basınız"
         android:visibility="gone" />
 
     <Button
