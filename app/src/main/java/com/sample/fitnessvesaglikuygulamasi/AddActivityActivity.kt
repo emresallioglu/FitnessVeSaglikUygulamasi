@@ -1,6 +1,8 @@
 package com.sample.fitnessvesaglikuygulamasi
 
 import android.os.Bundle
+import android.view.View
+import android.widget.AdapterView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -11,15 +13,19 @@ import android.widget.Spinner
 import android.widget.NumberPicker
 import android.widget.Button
 import android.widget.Toast
+import android.widget.TextView
 
 class AddActivityActivity : AppCompatActivity() {
 
     private lateinit var activitySpinner: Spinner
     private lateinit var hourPicker: NumberPicker
     private lateinit var addButton: Button
+    private lateinit var returnButton: Button
+    private lateinit var activityDescriptionTextView: TextView
+    private lateinit var activityCaloryTextView: TextView
+
     private val db = FirebaseFirestore.getInstance()
     private val activities = mutableListOf<Activity>()
-    private lateinit var returnButton: Button // Aktivitelere dön butonu
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +36,9 @@ class AddActivityActivity : AppCompatActivity() {
         hourPicker = findViewById(R.id.hourPicker)
         addButton = findViewById(R.id.addButton)
         returnButton = findViewById(R.id.returnButton)
+        activityDescriptionTextView = findViewById(R.id.activityDescriptionTextView)
+        activityCaloryTextView = findViewById(R.id.activityCaloryTextView)
+
         hourPicker.minValue = 0
         hourPicker.maxValue = 24
 
@@ -42,19 +51,26 @@ class AddActivityActivity : AppCompatActivity() {
         loadActivitiesFromFirestore()
 
         addButton.setOnClickListener {
-            // Saat sıfır olarak seçilmişse, kullanıcıya uyarı göster
             if (hourPicker.value == 0) {
                 Toast.makeText(this, "Lütfen saat seçiniz.", Toast.LENGTH_SHORT).show()
             } else {
                 saveUserActivityToFirestore()
             }
-
         }
 
         returnButton.setOnClickListener {
             finish()
         }
 
+        activitySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+                updateActivityDetails()
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+                // Bir şey yapılmasına gerek yok
+            }
+        }
     }
 
     private fun loadActivitiesFromFirestore() {
@@ -76,6 +92,14 @@ class AddActivityActivity : AppCompatActivity() {
             .addOnFailureListener { exception ->
                 // Hata işlemer
             }
+    }
+
+    private fun updateActivityDetails() {
+        val selectedActivityName = activitySpinner.selectedItem.toString()
+        val selectedActivity = activities.find { it.activity_name == selectedActivityName }
+
+        activityDescriptionTextView.text = selectedActivity?.activity_description ?: "Açıklama bulunamadı"
+        activityCaloryTextView.text = selectedActivity?.activity_calory?.toString() ?: "0"
     }
 
     private fun saveUserActivityToFirestore() {
