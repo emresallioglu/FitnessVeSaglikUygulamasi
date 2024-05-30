@@ -8,43 +8,19 @@
     android:background="#B497DD"
     tools:context=".ActivityFragment">
 
-    <TableLayout
-        android:id="@+id/activityTable"
-        android:layout_width="0dp"
+    <LinearLayout
+        android:id="@+id/activityList"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:background="@color/white"
         app:layout_constraintBottom_toTopOf="@id/add_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:background="@color/lightGray">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:padding="16dp"
-                android:text="Aktivite Adı"
-                android:textColor="@color/black"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:padding="16dp"
-                android:text="Yakılan Kalori"
-                android:textColor="@color/black"
-                android:textStyle="bold" />
-        </TableRow>
-    </TableLayout>
+    </LinearLayout>
 
     <Button
         android:id="@+id/add_button"
@@ -55,6 +31,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/activityTable" />
+        app:layout_constraintTop_toBottomOf="@id/activityList" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,4 +13,7 @@
     <color name="background_color">#F0F4F7</color> <!-- Soft blue background -->
     <color name="button_login_color">#4CAF50</color> <!-- Green color for login button -->
     <color name="button_register_color">#0288D1</color> <!-- Blue color for register text -->
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
 </resources>

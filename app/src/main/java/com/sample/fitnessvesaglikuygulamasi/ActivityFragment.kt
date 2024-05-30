@@ -7,9 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentTransaction
 import kotlinx.coroutines.runBlocking
 
@@ -26,7 +28,6 @@ class ActivityFragment : Fragment() {
 
         // Button tanımlama
         addButton = view.findViewById(R.id.add_button)
-        tableLayout = view.findViewById(R.id.activityTable) // Tabloyu tanımla
 
         // Button click listener
         addButton.setOnClickListener {
@@ -43,23 +44,34 @@ class ActivityFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        updateTable() // onResume'da tabloyu güncelle
+        uptadeActivities() // onResume'da tabloyu güncelle
     }
 
-    private fun updateTable() {
-        tableLayout.removeAllViews() // Önceki verileri temizle
+    private fun uptadeActivities() {
         runBlocking {
             val activityDetails = activityServices.getActivityByUserId(GlobalVariables.currentUser?.id.toString())
+            val activityListLayout = view?.findViewById<LinearLayout>(R.id.activityList)
+
+            // Temizleme
+            activityListLayout?.removeAllViews()
+
             for (activityDetail in activityDetails) {
-                val tableRow = TableRow(context)
-                val nameTextView = TextView(context)
-                nameTextView.text = activityDetail.activity?.activity_name
-                val caloriesTextView = TextView(context)
-                caloriesTextView.text = activityDetail.caloriesBurned.toString()
-                tableRow.addView(nameTextView)
-                tableRow.addView(caloriesTextView)
-                tableLayout.addView(tableRow)
+                val activityTextView = TextView(context)
+                activityTextView.text = "${activityDetail.activity?.activity_name}: ${activityDetail.caloriesBurned} Kalori"
+                activityTextView.setPadding(0, 16, 0, 16) // Padding ekle
+                activityListLayout?.addView(activityTextView)
+
+                // Ayırıcı ekle
+                val divider = View(context)
+                val params = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    2 // Ayırıcı yüksekliği
+                )
+                divider.layoutParams = params
+                divider.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.black))
+                activityListLayout?.addView(divider)
             }
         }
     }
+
 }

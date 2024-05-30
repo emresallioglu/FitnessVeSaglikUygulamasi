@@ -1,5 +1,6 @@
 package com.sample.fitnessvesaglikuygulamasi
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -19,6 +20,7 @@ class AddActivityActivity : AppCompatActivity() {
     private lateinit var addButton: Button
     private val db = FirebaseFirestore.getInstance()
     private val activities = mutableListOf<Activity>()
+    private lateinit var returnButton: Button // Aktivitelere dön butonu
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +30,7 @@ class AddActivityActivity : AppCompatActivity() {
         activitySpinner = findViewById(R.id.activitySpinner)
         hourPicker = findViewById(R.id.hourPicker)
         addButton = findViewById(R.id.addButton)
-
+        returnButton = findViewById(R.id.returnButton)
         hourPicker.minValue = 0
         hourPicker.maxValue = 24
 
@@ -41,8 +43,19 @@ class AddActivityActivity : AppCompatActivity() {
         loadActivitiesFromFirestore()
 
         addButton.setOnClickListener {
-            saveUserActivityToFirestore()
+            // Saat sıfır olarak seçilmişse, kullanıcıya uyarı göster
+            if (hourPicker.value == 0) {
+                Toast.makeText(this, "Lütfen saat seçiniz.", Toast.LENGTH_SHORT).show()
+            } else {
+                saveUserActivityToFirestore()
+            }
+
         }
+
+        returnButton.setOnClickListener {
+            finish()
+        }
+
     }
 
     private fun loadActivitiesFromFirestore() {

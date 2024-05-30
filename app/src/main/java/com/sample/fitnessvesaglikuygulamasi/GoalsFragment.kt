@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,6 +16,7 @@ class GoalsFragment : Fragment() {
 
     private lateinit var addButton: Button
     private lateinit var recyclerView: RecyclerView
+    private lateinit var emptyView: TextView
     private lateinit var goalsAdapter: GoalsAdapter
     private lateinit var db: FirebaseFirestore
 
@@ -27,6 +29,7 @@ class GoalsFragment : Fragment() {
         db = FirebaseFirestore.getInstance()
 
         recyclerView = view.findViewById(R.id.goals_recycler_view)
+        emptyView = view.findViewById(R.id.empty_view)
         addButton = view.findViewById(R.id.add_button)
 
         recyclerView.layoutManager = LinearLayoutManager(context)
@@ -45,7 +48,7 @@ class GoalsFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        loadGoals() // Activity tekrar görünür olduğunda hedefleri yeniden yükleyin
+        loadGoals() // Fragment tekrar görünür olduğunda hedefleri yeniden yükleyin
     }
 
     private fun loadGoals() {
@@ -58,9 +61,20 @@ class GoalsFragment : Fragment() {
                     document.toObject(UserGoal::class.java).apply { this.userId = document.id }
                 }
                 goalsAdapter.updateGoals(goals)
+                updateUI(goals.isEmpty())
             }
             .addOnFailureListener { exception ->
                 // Hata durumunu yönetin
             }
+    }
+
+    private fun updateUI(isEmpty: Boolean) {
+        if (isEmpty) {
+            recyclerView.visibility = View.GONE
+            emptyView.visibility = View.VISIBLE
+        } else {
+            recyclerView.visibility = View.VISIBLE
+            emptyView.visibility = View.GONE
+        }
     }
 }
