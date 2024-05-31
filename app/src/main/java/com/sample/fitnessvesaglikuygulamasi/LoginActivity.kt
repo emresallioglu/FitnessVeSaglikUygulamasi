@@ -9,6 +9,14 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.sample.fitnessvesaglikuygulamasi.databinding.ActivityLoginBinding
 
+data class Activity(
+    var activity_id: String = "",
+    val activity_name: String = "",
+    val activity_description: String = "",
+    val activity_calory: Float = 0f,
+    val activity_video_url: String = ""  // Yeni alan eklendi
+)
+
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
@@ -24,6 +32,7 @@ class LoginActivity : AppCompatActivity() {
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
         }
+
 
         binding.loginButton.setOnClickListener {
 
@@ -105,6 +114,44 @@ class LoginActivity : AppCompatActivity() {
                 Activity("Mountain Climber", "Kardiyo ve karın kaslarını çalıştırmak için mountain climber yapma", 450f),
                 Activity("Lunge", "Bacak kaslarını güçlendirmek için lunge yapma", 300f),
                 Activity("Deadlift", "Bel, sırt ve bacak kaslarını çalıştırmak için deadlift yapma", 400f)
+            )
+
+            for (activity in activities) {
+                db.collection("activities")
+                    .add(activity)
+                    .addOnSuccessListener { documentReference ->
+                        println("Activity added with ID: ${documentReference.id}")
+                    }
+                    .addOnFailureListener { e ->
+                        println("Error adding activity: $e")
+                    }
+            }
+        }*/
+
+/*binding.button.setOnClickListener {
+            val db = FirebaseFirestore.getInstance()
+
+            val activities = listOf(
+                Activity("", "Yürüyüş", "Hafif tempolu yürüyüş, genel sağlığı ve zindeliği artırır.", 300f, "https://www.youtube.com/watch?v=QxaKQG1i0t4"),
+                Activity("", "Koşu", "Orta tempolu koşu, kardiyovasküler sağlığı güçlendirir.", 600f, "https://www.youtube.com/watch?v=fis26HvvDII"),
+                Activity("", "Bisiklet Sürme", "Orta tempolu bisiklet sürme, bacak kaslarını güçlendirir.", 500f, "https://www.youtube.com/watch?v=1VtMzty4igY"),
+                Activity("", "Yüzme", "Serbest stil yüzme, tüm vücut kaslarını çalıştırır ve kalori yakar.", 700f, "https://www.youtube.com/watch?v=a_G9Naeclk4"),
+                Activity("", "Boks", "Antrenman sırasında boks yapma, dayanıklılığı ve kuvveti artırır.", 800f, "https://www.youtube.com/watch?v=sFbx2FJ4YYM"),
+                Activity("", "Barfiks", "Barfiks çekme, üst vücut kaslarını güçlendirir.", 400f, "https://www.youtube.com/watch?v=eGo4IYlbE5g"),
+                Activity("", "Yoga", "Rahatlatıcı yoga egzersizleri, esnekliği ve zihinsel sağlığı artırır.", 200f, "https://www.youtube.com/watch?v=v7AYKMP6rOE"),
+                Activity("", "Basketbol", "Orta tempolu basketbol oynamak, kardiyo ve koordinasyon yeteneklerini geliştirir.", 400f, "https://www.youtube.com/watch?v=bUUM73xzbH4"),
+                Activity("", "Futbol", "Orta tempolu futbol oynamak, dayanıklılığı ve takım çalışmasını artırır.", 500f, "https://www.youtube.com/watch?v=vvLCXgCkxb0"),
+                Activity("", "Voleybol", "Orta tempolu voleybol oynamak, refleksleri ve koordinasyonu artırır.", 300f, "https://www.youtube.com/watch?v=MOqnvRt7CSU"),
+                Activity("", "Plank", "Karın kaslarını güçlendirmek için plank yapma, çekirdek kasları hedefler.", 250f, "https://www.youtube.com/watch?v=pSHjTRCQxIw"),
+                Activity("", "Squat", "Diz ve kalça kaslarını çalıştırmak için squat yapma, bacak gücünü artırır.", 350f, "https://www.youtube.com/watch?v=aclHkVaku9U"),
+                Activity("", "Push-up", "Göğüs, kol ve omuz kaslarını çalıştırmak için push-up yapma.", 200f, "https://www.youtube.com/watch?v=_l3ySVKYVJ8"),
+                Activity("", "Jumping Jacks", "Kardiyo yapmak için jumping jacks yapma, hızlı kalori yakar.", 400f, "https://www.youtube.com/watch?v=UpH7rm0cYbM"),
+                Activity("", "Sit-up", "Karın kaslarını güçlendirmek için sit-up yapma, çekirdek kasları hedefler.", 250f, "https://www.youtube.com/watch?v=1fbU_MkV7NE"),
+                Activity("", "Burpee", "Tüm vücudu çalıştırmak için burpee yapma, yüksek yoğunluklu kardiyo sağlar.", 500f, "https://www.youtube.com/watch?v=TU8QYVW0gDU"),
+                Activity("", "Leg Raise", "Alt karın kaslarını çalıştırmak için leg raise yapma.", 300f, "https://www.youtube.com/watch?v=JB2oyawG9KI"),
+                Activity("", "Mountain Climber", "Kardiyo ve karın kaslarını çalıştırmak için mountain climber yapma.", 450f, "https://www.youtube.com/watch?v=nmwgirgXLYM"),
+                Activity("", "Lunge", "Bacak kaslarını güçlendirmek için lunge yapma.", 300f, "https://www.youtube.com/watch?v=QOVaHwm-Q6U"),
+                Activity("", "Deadlift", "Bel, sırt ve bacak kaslarını çalıştırmak için deadlift yapma.", 400f, "https://www.youtube.com/watch?v=r4MzxtBKyNE")
             )
 
             for (activity in activities) {

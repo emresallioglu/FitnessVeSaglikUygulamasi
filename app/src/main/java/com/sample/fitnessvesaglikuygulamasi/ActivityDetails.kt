@@ -1,5 +1,7 @@
 package com.sample.fitnessvesaglikuygulamasi
 
+import Activity
+
 data class ActivityDetail(
     var activity: Activity? = null,
     var user: User? = null,

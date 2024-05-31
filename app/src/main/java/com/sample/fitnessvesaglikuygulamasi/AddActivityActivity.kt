@@ -2,6 +2,8 @@ package com.sample.fitnessvesaglikuygulamasi
 
 import android.os.Bundle
 import android.view.View
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import android.widget.AdapterView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -23,7 +25,7 @@ class AddActivityActivity : AppCompatActivity() {
     private lateinit var returnButton: Button
     private lateinit var activityDescriptionTextView: TextView
     private lateinit var activityCaloryTextView: TextView
-
+    private lateinit var activityVideoWebView: WebView
     private val db = FirebaseFirestore.getInstance()
     private val activities = mutableListOf<Activity>()
 
@@ -38,6 +40,7 @@ class AddActivityActivity : AppCompatActivity() {
         returnButton = findViewById(R.id.returnButton)
         activityDescriptionTextView = findViewById(R.id.activityDescriptionTextView)
         activityCaloryTextView = findViewById(R.id.activityCaloryTextView)
+        activityVideoWebView = findViewById(R.id.activityVideoWebView)
 
         hourPicker.minValue = 0
         hourPicker.maxValue = 24
@@ -64,13 +67,30 @@ class AddActivityActivity : AppCompatActivity() {
 
         activitySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
-                updateActivityDetails()
+                val selectedActivity = activities[position]
+                activityDescriptionTextView.text = selectedActivity.activity_description
+                activityCaloryTextView.text = getString(R.string.calory_format, selectedActivity.activity_calory)
+
+                // Videoyu tam ekran olarak yükle
+                activityVideoWebView.settings.javaScriptEnabled = true
+                activityVideoWebView.webViewClient = object : WebViewClient() {
+                    override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
+                        // YouTube'un video oynatma sayfasını yükle
+                        if (url.startsWith("http") || url.startsWith("https")) {
+                            view.loadUrl(url)
+                            return true
+                        }
+                        return false
+                    }
+                }
+                activityVideoWebView.loadUrl(selectedActivity.activity_video_url)
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {
-                // Bir şey yapılmasına gerek yok
+                // Bir şey yapılmayacak
             }
         }
+
     }
 
     private fun loadActivitiesFromFirestore() {
@@ -90,16 +110,8 @@ class AddActivityActivity : AppCompatActivity() {
                 activitySpinner.adapter = adapter
             }
             .addOnFailureListener { exception ->
-                // Hata işlemer
+                // Handle error
             }
-    }
-
-    private fun updateActivityDetails() {
-        val selectedActivityName = activitySpinner.selectedItem.toString()
-        val selectedActivity = activities.find { it.activity_name == selectedActivityName }
-
-        activityDescriptionTextView.text = selectedActivity?.activity_description ?: "Açıklama bulunamadı"
-        activityCaloryTextView.text = selectedActivity?.activity_calory?.toString() ?: "0"
     }
 
     private fun saveUserActivityToFirestore() {
@@ -110,7 +122,7 @@ class AddActivityActivity : AppCompatActivity() {
         val caloriesBurned = selectedActivity?.activity_calory?.times(selectedHours) ?: 0f
 
         val activityDetail = UserActivity(
-            userId = GlobalVariables.currentUser?.id, // Kullanıcının ID'si
+            userId = GlobalVariables.currentUser?.id,
             activityId = selectedActivity?.activity_id ?: "",
             caloriesBurned = caloriesBurned
         )
@@ -121,7 +133,7 @@ class AddActivityActivity : AppCompatActivity() {
                 Toast.makeText(this, "Aktivite kaydedildi!", Toast.LENGTH_SHORT).show()
             }
             .addOnFailureListener { exception ->
-                // Hata işleme
+                // Handle error
             }
     }
 }
