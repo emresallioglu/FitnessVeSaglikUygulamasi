@@ -9,4 +9,7 @@ data class UserGoal(
     val startDate: Date? = null,
     val endDate: Date? = null,
     val isCompleted: Boolean = false
-)
+){
+    // No-argument constructor
+    constructor() : this(null, "", "", null, null, false)
+}

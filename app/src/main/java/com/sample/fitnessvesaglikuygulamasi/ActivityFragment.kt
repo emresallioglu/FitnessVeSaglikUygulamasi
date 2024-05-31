@@ -19,6 +19,7 @@ class ActivityFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var activityAdapter: ActivityAdapter
     private lateinit var noActivityText: TextView
+    private lateinit var TitleText: TextView
     private val activityServices = ActivityServices()
 
     override fun onCreateView(
@@ -30,6 +31,7 @@ class ActivityFragment : Fragment() {
         addButton = view.findViewById(R.id.add_button)
         recyclerView = view.findViewById(R.id.activity_recycler_view)
         noActivityText = view.findViewById(R.id.no_activity_text)
+        TitleText = view.findViewById(R.id.title_text)
         recyclerView.layoutManager = LinearLayoutManager(context)
 
         activityAdapter = ActivityAdapter(listOf(), object : ActivityAdapter.OnDeleteClickListener {
@@ -54,14 +56,18 @@ class ActivityFragment : Fragment() {
     }
 
     private fun updateActivities() {
+
         runBlocking {
             val activityDetails = activityServices.getActivityByUserId(GlobalVariables.currentUser?.id.toString())
             if (activityDetails.isEmpty()) {
                 recyclerView.visibility = View.GONE
+                TitleText.visibility = View.GONE
                 noActivityText.visibility = View.VISIBLE
+
             } else {
                 recyclerView.visibility = View.VISIBLE
                 noActivityText.visibility = View.GONE
+                TitleText.visibility = View.VISIBLE
             }
             activityAdapter.updateActivities(activityDetails)
         }

@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
     android:padding="16dp">
 
     <TextView
@@ -16,12 +15,19 @@
         android:id="@+id/goal_description_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/goal_text"
+        android:layout_alignStart="@id/goal_text"
+        android:layout_alignLeft="@id/goal_text"
         android:textSize="16sp" />
 
     <TextView
         android:id="@+id/goal_status_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/goal_description_text"
+        android:layout_alignStart="@id/goal_description_text"
+        android:layout_alignLeft="@id/goal_description_text"
+        android:layout_marginTop="8dp"
         android:textSize="14sp"
         android:textColor="@android:color/holo_red_dark" />
 
@@ -29,7 +35,9 @@
         android:id="@+id/delete_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sil"
-        android:layout_marginTop="8dp" />
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:text="Sil" />
 
-</LinearLayout>
+</RelativeLayout>

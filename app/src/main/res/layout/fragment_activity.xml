@@ -6,8 +6,23 @@
     android:id="@+id/activityFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#B497DD"
+    android:background="@color/background_color"
     tools:context=".ActivityFragment">
+
+    <TextView
+        android:id="@+id/title_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Kullanıcının Aktiviteleri"
+        android:textSize="24sp"
+        android:visibility="gone"
+        android:textStyle="bold"
+        android:textColor="@color/button_login_color"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/activity_recycler_view"
@@ -20,7 +35,7 @@
         app:layout_constraintBottom_toTopOf="@id/add_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/title_text" />
 
     <Button
         android:id="@+id/add_button"
@@ -28,6 +43,11 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:text="Aktivite Ekle"
+        android:textColor="@android:color/white"
+        android:backgroundTint="@color/button_login_color"
+        android:padding="12dp"
+        android:drawablePadding="12dp"
+        android:drawableLeft="@drawable/plus"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -38,6 +58,7 @@
         android:layout_height="wrap_content"
         android:text="Aktivite eklemek için butona basınız"
         android:visibility="gone"
+        android:textColor="@android:color/black"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
