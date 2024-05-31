@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFEB3B"
+    android:background="@color/background_color"
     tools:context=".SleepFragment">
 
     <LinearLayout
@@ -33,6 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Uyku Zamanını Ayarla"
+            android:backgroundTint="@color/button_login_color"
             android:layout_marginBottom="16dp"/>
 
         <TextView
@@ -55,12 +56,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Uyanma Zamanını Ayarla"
+            android:backgroundTint="@color/button_login_color"
             android:layout_marginBottom="16dp"/>
 
         <Button
             android:id="@+id/buttonSave"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/button_login_color"
             android:text="Kaydet"/>
     </LinearLayout>
 </FrameLayout>

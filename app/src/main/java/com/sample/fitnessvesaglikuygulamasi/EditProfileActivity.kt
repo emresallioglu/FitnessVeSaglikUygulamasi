@@ -1,5 +1,6 @@
 package com.sample.fitnessvesaglikuygulamasi
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -15,7 +16,7 @@ class EditProfileActivity : AppCompatActivity() {
     private lateinit var editTextHeight: EditText
     private lateinit var editTextWeight: EditText
     private lateinit var saveButton: Button
-
+    private lateinit var backToProfileButton: Button
     private val db = FirebaseFirestore.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,11 +29,16 @@ class EditProfileActivity : AppCompatActivity() {
         editTextHeight = findViewById(R.id.editTextHeight)
         editTextWeight = findViewById(R.id.editTextWeight)
         saveButton = findViewById(R.id.saveButton)
+        backToProfileButton = findViewById(R.id.backToProfileButton)
 
         loadUserProfile()
 
         saveButton.setOnClickListener {
             saveUserProfile()
+        }
+
+        backToProfileButton.setOnClickListener {
+            backToProfile()
         }
     }
 
@@ -79,5 +85,9 @@ class EditProfileActivity : AppCompatActivity() {
                     Toast.makeText(this, "Profil güncellenirken hata oluştu", Toast.LENGTH_SHORT).show()
                 }
         }
+    }
+
+    private fun backToProfile() {
+        finish()
     }
 }
