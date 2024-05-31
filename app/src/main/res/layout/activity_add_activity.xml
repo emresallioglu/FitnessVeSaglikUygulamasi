@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingTop="64dp"
+    android:background="@color/background_color"
     tools:context=".AddActivityActivity">
 
     <Spinner
@@ -17,7 +18,8 @@
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/edit_text_background"/>
 
     <TextView
         android:id="@+id/activityDescriptionTextView"
@@ -29,7 +31,8 @@
         android:text="Aktivite Açıklaması"
         app:layout_constraintTop_toBottomOf="@id/activitySpinner"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="@color/text_color"/>
 
     <TextView
         android:id="@+id/activityCaloryTextView"
@@ -41,7 +44,8 @@
         android:text="Kalori"
         app:layout_constraintTop_toBottomOf="@id/activityDescriptionTextView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="@color/text_color"/>
 
     <WebView
         android:id="@+id/activityVideoWebView"
@@ -70,10 +74,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:background="@color/button_login_color"
         android:text="Ekle"
-        app:layout_constraintTop_toBottomOf="@id/hourPicker"
+        android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/hourPicker" />
 
     <Button
         android:id="@+id/returnButton"
@@ -83,6 +89,8 @@
         android:text="Aktivitelere Dön"
         app:layout_constraintTop_toBottomOf="@id/addButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@color/button_login_color"
+        android:textColor="@android:color/white"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
