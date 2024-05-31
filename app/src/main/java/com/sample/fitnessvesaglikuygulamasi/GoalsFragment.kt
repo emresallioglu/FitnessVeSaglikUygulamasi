@@ -19,6 +19,7 @@ class GoalsFragment : Fragment() {
     private lateinit var emptyView: TextView
     private lateinit var goalsAdapter: GoalsAdapter
     private lateinit var db: FirebaseFirestore
+    private lateinit var TitleText: TextView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,6 +32,7 @@ class GoalsFragment : Fragment() {
         recyclerView = view.findViewById(R.id.goals_recycler_view)
         emptyView = view.findViewById(R.id.empty_view)
         addButton = view.findViewById(R.id.add_button)
+        TitleText = view.findViewById(R.id.title_text)
 
         recyclerView.layoutManager = LinearLayoutManager(context)
         goalsAdapter = GoalsAdapter(listOf())
@@ -71,9 +73,11 @@ class GoalsFragment : Fragment() {
     private fun updateUI(isEmpty: Boolean) {
         if (isEmpty) {
             recyclerView.visibility = View.GONE
+            TitleText.visibility = View.GONE
             emptyView.visibility = View.VISIBLE
         } else {
             recyclerView.visibility = View.VISIBLE
+            TitleText.visibility = View.VISIBLE
             emptyView.visibility = View.GONE
         }
     }
