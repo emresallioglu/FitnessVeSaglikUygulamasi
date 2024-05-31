@@ -71,25 +71,20 @@ class AddActivityActivity : AppCompatActivity() {
                 activityDescriptionTextView.text = selectedActivity.activity_description
                 activityCaloryTextView.text = getString(R.string.calory_format, selectedActivity.activity_calory)
 
-                // Videoyu tam ekran olarak yükle
+                // Embed URL'yi kullanarak videoyu tam ekran olarak yükle
+                val videoId = selectedActivity.activity_video_url.split("v=")[1] // Video ID'yi URL'den çıkar
+                val embedUrl = "https://www.youtube.com/embed/$videoId"
+
                 activityVideoWebView.settings.javaScriptEnabled = true
-                activityVideoWebView.webViewClient = object : WebViewClient() {
-                    override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
-                        // YouTube'un video oynatma sayfasını yükle
-                        if (url.startsWith("http") || url.startsWith("https")) {
-                            view.loadUrl(url)
-                            return true
-                        }
-                        return false
-                    }
-                }
-                activityVideoWebView.loadUrl(selectedActivity.activity_video_url)
+                activityVideoWebView.webViewClient = WebViewClient()
+                activityVideoWebView.loadUrl(embedUrl)
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {
                 // Bir şey yapılmayacak
             }
         }
+
 
     }
 
