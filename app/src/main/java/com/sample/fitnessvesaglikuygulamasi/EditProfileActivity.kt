@@ -90,4 +90,5 @@ class EditProfileActivity : AppCompatActivity() {
     private fun backToProfile() {
         finish()
     }
+
 }

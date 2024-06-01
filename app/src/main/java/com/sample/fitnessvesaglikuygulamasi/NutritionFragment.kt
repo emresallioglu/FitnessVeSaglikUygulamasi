@@ -87,8 +87,10 @@ class NutritionFragment : Fragment() {
             Aktiviteler: $activityDescriptions
             Hedefler: $goalDescriptions
 
+            Programı kullanıcının hedefine göre yaz. Diğer bilgileri de göz önünde bulundur.
             Bu bilgilerle sadece denemelik bir diyet ve egzersiz programı oluşturabilir misin?
-            Sade programları yaz, başka bilgi yazma. Başlığa "Denemelik" yaz, Diyet Programı ve Egzersiz Programı yaz.
+            Sade programları yaz, başka bilgi yazma. Başlığa "Denemelik" yazma, Diyet Programı ve Egzersiz Programı yaz.
+            Hiçbir şekilde sona not yazma sadece programları göster.
         """.trimIndent()
     }
 
