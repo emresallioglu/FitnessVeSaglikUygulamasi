@@ -72,32 +72,48 @@ class RegisterActivity : AppCompatActivity() {
 
             // Diğer giriş kontrollerini ekleyebilirsiniz.
 
-            // Kullanıcı adının veritabanında mevcut olup olmadığını kontrol et
+            // E-postanın veritabanında mevcut olup olmadığını kontrol et
             db.collection("users")
-                .whereEqualTo("userName", userName)
+                .whereEqualTo("email", email)
                 .get()
                 .addOnSuccessListener { documents ->
                     if (!documents.isEmpty) {
-                        // Kullanıcı adı veritabanında mevcutsa kullanıcıyı uyar
-                        Toast.makeText(this, "Bu kullanıcı adı zaten kullanımda, lütfen farklı bir kullanıcı adı seçin", Toast.LENGTH_SHORT).show()
+                        // E-posta adresi veritabanında mevcutsa kullanıcıyı uyar
+                        Toast.makeText(this, "Bu e-posta adresi zaten kayıtlı, lütfen farklı bir e-posta adresi kullanın", Toast.LENGTH_SHORT).show()
                     } else {
-                        // Kullanıcı adı veritabanında mevcut değilse kullanıcıyı kaydeder
-                        val user = User("", userName, name, surName, age, email, password, height, weight, gender)
+                        // E-posta adresi veritabanında mevcut değilse kullanıcıyı kaydeder
+                        // Kullanıcı adının veritabanında mevcut olup olmadığını kontrol et
+                        db.collection("users")
+                            .whereEqualTo("userName", userName)
+                            .get()
+                            .addOnSuccessListener { documents ->
+                                if (!documents.isEmpty) {
+                                    // Kullanıcı adı veritabanında mevcutsa kullanıcıyı uyar
+                                    Toast.makeText(this, "Bu kullanıcı adı zaten kullanımda, lütfen farklı bir kullanıcı adı seçin", Toast.LENGTH_SHORT).show()
+                                } else {
+                                    // Kullanıcı adı veritabanında mevcut değilse kullanıcıyı kaydeder
+                                    val user = User("", userName, name, surName, age, email, password, height, weight, gender)
 
-                        val myUuid = UUID.randomUUID()
-                        val myUuidAsString = myUuid.toString()
+                                    val myUuid = UUID.randomUUID()
+                                    val myUuidAsString = myUuid.toString()
 
-                        db.collection("users").document(myUuidAsString)
-                            .set(user)
-                            .addOnSuccessListener {
-                                Log.d(TAG, "DocumentSnapshot successfully written!")
-                                val intent = Intent(this, LoginActivity::class.java)
-                                startActivity(intent)
-                                finish() // RegisterActivity'yi kapatmak için
+                                    db.collection("users").document(myUuidAsString)
+                                        .set(user)
+                                        .addOnSuccessListener {
+                                            Log.d(TAG, "DocumentSnapshot successfully written!")
+                                            val intent = Intent(this, LoginActivity::class.java)
+                                            startActivity(intent)
+                                            finish() // RegisterActivity'yi kapatmak için
+                                        }
+                                        .addOnFailureListener { e ->
+                                            Log.w(TAG, "Error writing document", e)
+                                            // Başarısızlık durumunda gerekli işlemler yapılabilir
+                                        }
+                                }
                             }
-                            .addOnFailureListener { e ->
-                                Log.w(TAG, "Error writing document", e)
-                                // Başarısızlık durumunda gerekli işlemler yapılabilir
+                            .addOnFailureListener { exception ->
+                                Log.w(TAG, "Error getting documents: ", exception)
+                                // Hata durumunda gerekli işlemler yapılabilir
                             }
                     }
                 }
@@ -106,9 +122,5 @@ class RegisterActivity : AppCompatActivity() {
                     // Hata durumunda gerekli işlemler yapılabilir
                 }
         }
-
-
-
-        // TODO: Kayıt ol butonuna tıklandığında Firebase ile kullanıcı oluşturulacak
     }
 }
