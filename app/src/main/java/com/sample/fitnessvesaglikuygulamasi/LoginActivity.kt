@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.sample.fitnessvesaglikuygulamasi.databinding.ActivityLoginBinding
@@ -38,20 +39,21 @@ class LoginActivity : AppCompatActivity() {
 
             val username = binding.usernameEditText.text.toString()
             val password = binding.passwordEditText.text.toString()
-            var userLoggedIn = false
 
             if (username.isEmpty() || password.isEmpty()) {
-                // Display error message
+                // Kullanıcıya hata mesajı göster
+                Toast.makeText(this, "Kullanıcı adı veya şifre boş olamaz", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
             db.collection("users").whereEqualTo("userName", username)
                 .get()
                 .addOnSuccessListener { documents ->
+                    var userLoggedIn = false
                     for (document in documents) {
                         val storedPassword = document.getString("password") ?: ""
                         if (password == storedPassword) {
-                            // Successful login
+                            // Başarılı giriş
                             userLoggedIn = true
 
                             GlobalVariables.currentUser = User(
@@ -67,8 +69,8 @@ class LoginActivity : AppCompatActivity() {
                                 age = document.getLong("age")?.toInt() ?: 0
                             )
 
-                            // Store user information, navigate to main app interface
-                            Log.d(TAG, "Successful login: ${GlobalVariables.currentUser}")
+                            // Kullanıcı bilgilerini sakla, ana uygulama arayüzüne geç
+                            Log.d(TAG, "Başarılı giriş: ${GlobalVariables.currentUser}")
                             val intent = Intent(this, MainActivity::class.java)
                             startActivity(intent)
                             finish()
@@ -76,15 +78,19 @@ class LoginActivity : AppCompatActivity() {
                         }
                     }
                     if (!userLoggedIn) {
-                        // Handle failed login
-                        Log.d(TAG, "Login failed: Invalid username or password")
+                        // Başarısız giriş
+                        Log.d(TAG, "Giriş başarısız: Geçersiz kullanıcı adı veya şifre")
+                        Toast.makeText(this, "Giriş başarısız: Geçersiz kullanıcı adı veya şifre", Toast.LENGTH_SHORT).show()
                     }
                 }
                 .addOnFailureListener { exception ->
-                    // Handle database error
-                    Log.w(TAG, "Error getting documents", exception)
+                    // Firestore'dan dönen hata durumunu logla
+                    Log.w(TAG, "Belgeleri alırken hata oluştu", exception)
+                    // Kullanıcıya hata mesajı göster
+                    Toast.makeText(this, "Giriş başarısız: Bir hata oluştu", Toast.LENGTH_SHORT).show()
                 }
         }
+
     }
 }
 
