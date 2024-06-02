@@ -129,6 +129,23 @@
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"/>
 
+        <!-- EditText for age -->
+        <EditText
+            android:id="@+id/ageEditText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Age"
+            android:inputType="number"
+            android:padding="12dp"
+            android:background="@drawable/edit_text_background"
+            android:drawableLeft="@drawable/age"
+            android:drawablePadding="12dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/weightEditText"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"/>
+
         <!-- Spinner for gender -->
         <Spinner
             android:id="@+id/genderSpinner"
@@ -136,7 +153,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/weightEditText"
+            app:layout_constraintTop_toBottomOf="@+id/ageEditText"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"/>
 
