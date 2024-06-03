@@ -225,17 +225,4 @@ class NutritionFragment : Fragment() {
             }
     }
 
-    private suspend fun displaySavedPrograms(userId: String) {
-        val querySnapshot = db.collection("diet_lists")
-            .whereEqualTo("userId", userId)
-            .get().await()
-
-        if (querySnapshot.isEmpty) {
-            newDietList.text = "No saved programs found."
-            return
-        }
-
-        val savedPrograms = querySnapshot.documents.map { it.getString("dietList") ?: "Unknown Diet List" }
-        newDietList.text = savedPrograms.joinToString(separator = "\n\n") { it }
-    }
 }

@@ -40,9 +40,17 @@ class SleepFragment : Fragment() {
             val timePickerDialog = TimePickerDialog(
                 context,
                 { _, hourOfDay, minute ->
-                    sleepTime.set(Calendar.HOUR_OF_DAY, hourOfDay)
-                    sleepTime.set(Calendar.MINUTE, minute)
-                    updateTextView(textViewSleepTime, sleepTime)
+                    val selectedTime = Calendar.getInstance()
+                    selectedTime.set(Calendar.HOUR_OF_DAY, hourOfDay)
+                    selectedTime.set(Calendar.MINUTE, minute)
+
+                    // Check if selected time is equal to wakeTime
+                    if (selectedTime == wakeTime) {
+                        Toast.makeText(context, "Uyku ve uyanma zamanları aynı olamaz!", Toast.LENGTH_SHORT).show()
+                    } else {
+                        sleepTime = selectedTime
+                        updateTextView(textViewSleepTime, sleepTime)
+                    }
                 },
                 sleepTime.get(Calendar.HOUR_OF_DAY),
                 sleepTime.get(Calendar.MINUTE),
@@ -55,9 +63,17 @@ class SleepFragment : Fragment() {
             val timePickerDialog = TimePickerDialog(
                 context,
                 { _, hourOfDay, minute ->
-                    wakeTime.set(Calendar.HOUR_OF_DAY, hourOfDay)
-                    wakeTime.set(Calendar.MINUTE, minute)
-                    updateTextView(textViewWakeTime, wakeTime)
+                    val selectedTime = Calendar.getInstance()
+                    selectedTime.set(Calendar.HOUR_OF_DAY, hourOfDay)
+                    selectedTime.set(Calendar.MINUTE, minute)
+
+                    // Check if selected time is equal to sleepTime
+                    if (selectedTime == sleepTime) {
+                        Toast.makeText(context, "Uyku ve uyanma zamanları aynı olamaz!", Toast.LENGTH_SHORT).show()
+                    } else {
+                        wakeTime = selectedTime
+                        updateTextView(textViewWakeTime, wakeTime)
+                    }
                 },
                 wakeTime.get(Calendar.HOUR_OF_DAY),
                 wakeTime.get(Calendar.MINUTE),

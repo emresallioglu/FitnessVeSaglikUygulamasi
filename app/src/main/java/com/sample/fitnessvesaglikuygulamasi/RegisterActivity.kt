@@ -44,17 +44,26 @@ class RegisterActivity : AppCompatActivity() {
             val gender = binding.genderSpinner.selectedItem.toString()
             val ageText = binding.ageEditText.text.toString()
 
-            // Yaş alanı için kontrol
-            val age = if (ageText.isNotEmpty()) {
-                ageText.toIntOrNull() ?: 0
-            } else {
-                0
-            }
-
             // Giriş doğrulamasını yapın (Boş alan kontrolü, email formatı vb.)
             if (userName.isEmpty() || name.isEmpty() || surName.isEmpty() || email.isEmpty() || password.isEmpty()) {
                 // Gerekli alanlar boşsa kullanıcıyı uyar
                 Toast.makeText(this, "Lütfen tüm alanları doldurun", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            // Yaş alanı için kontrol
+            val age = if (ageText.isNotEmpty()) {
+                ageText.toIntOrNull() ?: 0
+            } else {
+                // Yaş alanı boş olamaz
+                Toast.makeText(this, "Lütfen yaşınızı girin", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+
+            if (userName.length < 8) {
+                // Kullanıcı adı en az 8 karakter olmalıdır
+                Toast.makeText(this, "Kullanıcı adınız en az 8 karakterden oluşmalıdır", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
@@ -69,8 +78,6 @@ class RegisterActivity : AppCompatActivity() {
                 Toast.makeText(this, "Şifreniz en az 8 karakterden oluşmalıdır", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-
-            // Diğer giriş kontrollerini ekleyebilirsiniz.
 
             // Rastgele bir UUID oluşturun
             val userId = UUID.randomUUID().toString()
