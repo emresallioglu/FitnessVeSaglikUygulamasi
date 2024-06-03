@@ -1,13 +1,15 @@
 package com.sample.fitnessvesaglikuygulamasi
 
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import com.google.ai.client.generativeai.GenerativeModel
+import android.widget.VideoView
 import androidx.lifecycle.lifecycleScope
+import com.google.ai.client.generativeai.GenerativeModel
 import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
@@ -30,6 +32,11 @@ class HomeFragment : Fragment() {
         val motivationMessage: TextView = view.findViewById(R.id.motivation_message)
 
         welcomeTextView.text = "Merhaba, $username"
+
+        val videoView: VideoView = view.findViewById(R.id.videoView)
+        val videoPath = "android.resource://" + requireActivity().packageName + "/" + R.raw.video // "example" yerine dosya adını koy
+        videoView.setVideoURI(Uri.parse(videoPath))
+        videoView.start()
 
         val generativeModel = GenerativeModel(
             modelName = "gemini-1.5-flash",
