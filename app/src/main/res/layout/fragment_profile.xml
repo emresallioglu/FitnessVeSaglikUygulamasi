@@ -87,9 +87,10 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="E-Mail"
+                    android:text="Email"
                     android:textStyle="bold"
                     android:textSize="16sp" />
+
                 <TextView
                     android:id="@+id/textViewEmail"
                     android:layout_width="match_parent"

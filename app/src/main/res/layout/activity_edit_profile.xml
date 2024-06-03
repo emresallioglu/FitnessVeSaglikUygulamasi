@@ -40,28 +40,28 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Name"
+                    android:text="İsim"
                     android:textStyle="bold"
                     android:textSize="16sp" />
                 <EditText
                     android:id="@+id/editTextName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Enter Name"
+                    android:hint="İsminizi Girin"
                     android:textSize="16sp"
                     android:layout_marginBottom="8dp" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Surname"
+                    android:text="Soyad"
                     android:textStyle="bold"
                     android:textSize="16sp" />
                 <EditText
                     android:id="@+id/editTextSurname"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Enter Surname"
+                    android:hint="Soyadınızı Girin"
                     android:textSize="16sp"
                     android:layout_marginBottom="8dp" />
 
@@ -75,35 +75,35 @@
                     android:id="@+id/editTextEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Enter Email"
+                    android:hint="Emailinizi Girin"
                     android:textSize="16sp"
                     android:layout_marginBottom="8dp" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Height"
+                    android:text="Ağırlık"
                     android:textStyle="bold"
                     android:textSize="16sp" />
                 <EditText
                     android:id="@+id/editTextHeight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Enter Height"
+                    android:hint="Ağırlığınızı Girin"
                     android:textSize="16sp"
                     android:layout_marginBottom="8dp" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Weight"
+                    android:text="Uzunluk"
                     android:textStyle="bold"
                     android:textSize="16sp" />
                 <EditText
                     android:id="@+id/editTextWeight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Enter Weight"
+                    android:hint="Uzunluğunuzu Girin"
                     android:textSize="16sp"
                     android:layout_marginBottom="8dp" />
 
@@ -117,7 +117,7 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:text="Save"
+                        android:text="Profili Kaydet"
                         android:layout_marginTop="24dp"
                         android:backgroundTint="@color/button_login_color"
                         android:textColor="@android:color/white"/>
@@ -127,7 +127,7 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:text="Back to Profile"
+                        android:text="Profile Dön"
                         android:layout_marginTop="24dp"
                         android:backgroundTint="@color/button_login_color"
                         android:textColor="@android:color/white"/>

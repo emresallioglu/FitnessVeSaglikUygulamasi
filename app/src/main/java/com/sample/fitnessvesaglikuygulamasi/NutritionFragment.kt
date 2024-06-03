@@ -19,6 +19,7 @@ class NutritionFragment : Fragment() {
     private lateinit var newNutritionProgram: Button
     private lateinit var viewSavedPrograms: Button
     private lateinit var newDietList: TextView
+    private lateinit var titleTextNutrition: TextView
     private val db = FirebaseFirestore.getInstance()
 
     override fun onCreateView(
@@ -30,6 +31,7 @@ class NutritionFragment : Fragment() {
         newNutritionProgram = view.findViewById(R.id.generate_diet_button)
         viewSavedPrograms = view.findViewById(R.id.view_saved_programs_button)
         newDietList = view.findViewById(R.id.dietList)
+        titleTextNutrition = view.findViewById(R.id.title_text_nutrition)
 
         newNutritionProgram.setOnClickListener {
             MainScope().launch {
@@ -193,6 +195,7 @@ class NutritionFragment : Fragment() {
                 Log.d("NutritionFragment", "Generating diet list")
                 val response = generativeModel.generateContent(prompt)
                 newDietList.text = response.text
+                titleTextNutrition.visibility = View.VISIBLE // Başlığı görünür yap
                 response.text?.let { saveDietListToFirestore(userId, it) }
                 Log.d("NutritionFragment", "Diet list generated and saved successfully")
             } catch (e: Exception) {
