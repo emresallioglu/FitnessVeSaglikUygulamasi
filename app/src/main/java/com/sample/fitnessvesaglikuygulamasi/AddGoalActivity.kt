@@ -18,7 +18,7 @@ import java.util.Calendar
 class AddGoalActivity : AppCompatActivity() {
 
     private lateinit var editTextGoal: EditText
-    private lateinit var editTextDescription: EditText // Goal description input
+    private lateinit var editTextDescription: EditText
     private lateinit var textView1: TextView
     private lateinit var textView2: TextView
     private lateinit var button1: Button
@@ -33,7 +33,7 @@ class AddGoalActivity : AppCompatActivity() {
         setContentView(R.layout.activity_add_goal)
 
         editTextGoal = findViewById(R.id.editTextGoal)
-        editTextDescription = findViewById(R.id.editTextDescription) // Goal description input
+        editTextDescription = findViewById(R.id.editTextDescription)
         textView1 = findViewById(R.id.textView1)
         textView2 = findViewById(R.id.textView2)
         button1 = findViewById(R.id.button1)
@@ -122,7 +122,7 @@ class AddGoalActivity : AppCompatActivity() {
             goal_description = goalDescription,
             startDate = SimpleDateFormat("yyyy-MM-dd").parse(formattedStartDate),
             endDate = SimpleDateFormat("yyyy-MM-dd").parse(formattedEndDate),
-            isCompleted = false // Varsayılan olarak yeni eklenen hedef tamamlanmamış olacak
+            isCompleted = false
         )
 
         val db = FirebaseFirestore.getInstance()
@@ -130,7 +130,7 @@ class AddGoalActivity : AppCompatActivity() {
             .add(userGoal)
             .addOnSuccessListener { documentReference ->
                 Toast.makeText(this, "Hedef kaydedildi!", Toast.LENGTH_SHORT).show()
-                finish() // Close the activity after saving
+                finish()
             }
             .addOnFailureListener { exception ->
                 Toast.makeText(this, "Hedef kaydedilirken hata oluştu.", Toast.LENGTH_SHORT).show()

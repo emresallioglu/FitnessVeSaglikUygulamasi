@@ -29,7 +29,6 @@ class ActivityAdapter(var activities: List<ActivityDetail>, private val onDelete
         holder.activityNameText.text = activity.activity?.activity_name
         holder.caloriesBurnedText.text = "${activity.caloriesBurned} Kalori"
 
-        // Delete button click listener
         holder.deleteButton.setOnClickListener {
             onDeleteClickListener.onDeleteClick(position)
         }

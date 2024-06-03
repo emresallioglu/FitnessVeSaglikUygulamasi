@@ -31,7 +31,6 @@ class ActivityServices {
                 if ((activity.activity_id == userActivity!!.activityId) &&
                     (userActivity.userId == GlobalVariables.currentUser?.id)) {
 
-                    // caloriesBurned değerini ata
                     var newActivityDetail = ActivityDetail(
                         activity = activity,
                         user = GlobalVariables.currentUser,
