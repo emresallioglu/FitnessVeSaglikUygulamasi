@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" >
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -13,11 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FitnessVeSaglikUygulamasi"
-        tools:targetApi="31" >
-        <activity
-            android:name=".SavedProgramsActivity"
-            android:exported="false"
-            android:theme="@style/Theme.FitnessVeSaglikUygulamasi" />
+        tools:targetApi="31">
+        <activity android:name=".SavedProgramsActivity" />
         <activity
             android:name=".EditProfileActivity"
             android:exported="false"
@@ -33,14 +30,14 @@
             android:exported="false" />
         <activity
             android:name=".LoginActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" >
+        <activity android:name=".MainActivity">
 
             <!-- Intent filtreleri veya diğer özellikler ekleyebilirsiniz -->
         </activity>

@@ -1,5 +1,6 @@
 package com.sample.fitnessvesaglikuygulamasi
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,6 +14,7 @@ import com.google.ai.client.generativeai.GenerativeModel
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
+import androidx.navigation.fragment.findNavController
 
 class NutritionFragment : Fragment() {
 
@@ -64,7 +66,8 @@ class NutritionFragment : Fragment() {
         }
 
         viewSavedPrograms.setOnClickListener {
-
+            val intent = Intent(activity, SavedProgramsActivity::class.java)
+            startActivity(intent)
         }
 
         return view
