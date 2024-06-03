@@ -141,6 +141,8 @@ class NutritionFragment : Fragment() {
     private suspend fun loadUserSleepTimes(userId: String): Pair<String, String>? {
         val querySnapshot = db.collection("sleep_times")
             .whereEqualTo("userId", userId)
+            .orderBy("timestamp", com.google.firebase.firestore.Query.Direction.DESCENDING)
+            .limit(1)
             .get().await()
 
         if (querySnapshot.isEmpty) {

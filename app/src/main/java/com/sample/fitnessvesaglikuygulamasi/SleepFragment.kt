@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -97,11 +98,13 @@ class SleepFragment : Fragment() {
     private fun saveSleepTimesToFirestore() {
         val formattedSleepTime = SimpleDateFormat("HH:mm").format(sleepTime.time)
         val formattedWakeTime = SimpleDateFormat("HH:mm").format(wakeTime.time)
+        val timestamp = FieldValue.serverTimestamp()
 
         val sleepData = hashMapOf(
             "userId" to (GlobalVariables.currentUser?.id ?: ""),
             "sleepTime" to formattedSleepTime,
-            "wakeTime" to formattedWakeTime
+            "wakeTime" to formattedWakeTime,
+            "timestamp" to timestamp
         )
 
         val db = FirebaseFirestore.getInstance()
