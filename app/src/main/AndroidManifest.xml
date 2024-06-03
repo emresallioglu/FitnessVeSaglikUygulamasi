@@ -21,7 +21,8 @@
             android:theme="@style/Theme.FitnessVeSaglikUygulamasi" />
         <activity
             android:name=".AddGoalActivity"
-            android:exported="false" />
+            android:windowSoftInputMode="adjustResize">
+        </activity>
         <activity
             android:name=".AddActivityActivity"
             android:exported="false" />
