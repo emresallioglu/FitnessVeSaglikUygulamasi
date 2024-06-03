@@ -13,6 +13,6 @@ data class User(
     val weight: Double,
     val gender: String
 ){
-    // No-argument constructor
+    // Secondary constructor without arguments
     constructor() : this("", "", "", "", 0, "", "", 0.0, 0.0, "")
 }

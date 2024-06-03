@@ -34,7 +34,7 @@ class RegisterActivity : AppCompatActivity() {
         binding.genderSpinner.adapter = genderAdapter
 
         binding.registerButton.setOnClickListener {
-            var userName = binding.usernameEditText.text.toString().trim()
+            val userName = binding.usernameEditText.text.toString().trim()
             val name = binding.nameEditText.text.toString()
             val surName = binding.surnameEditText.text.toString()
             val email = binding.emailEditText.text.toString()
@@ -72,54 +72,23 @@ class RegisterActivity : AppCompatActivity() {
 
             // Diğer giriş kontrollerini ekleyebilirsiniz.
 
-            // E-postanın veritabanında mevcut olup olmadığını kontrol et
-            db.collection("users")
-                .whereEqualTo("email", email)
-                .get()
-                .addOnSuccessListener { documents ->
-                    if (!documents.isEmpty) {
-                        // E-posta adresi veritabanında mevcutsa kullanıcıyı uyar
-                        Toast.makeText(this, "Bu e-posta adresi zaten kayıtlı, lütfen farklı bir e-posta adresi kullanın", Toast.LENGTH_SHORT).show()
-                    } else {
-                        // E-posta adresi veritabanında mevcut değilse kullanıcıyı kaydeder
-                        // Kullanıcı adının veritabanında mevcut olup olmadığını kontrol et
-                        db.collection("users")
-                            .whereEqualTo("userName", userName)
-                            .get()
-                            .addOnSuccessListener { documents ->
-                                if (!documents.isEmpty) {
-                                    // Kullanıcı adı veritabanında mevcutsa kullanıcıyı uyar
-                                    Toast.makeText(this, "Bu kullanıcı adı zaten kullanımda, lütfen farklı bir kullanıcı adı seçin", Toast.LENGTH_SHORT).show()
-                                } else {
-                                    // Kullanıcı adı veritabanında mevcut değilse kullanıcıyı kaydeder
-                                    val user = User("", userName, name, surName, age, email, password, height, weight, gender)
+            // Rastgele bir UUID oluşturun
+            val userId = UUID.randomUUID().toString()
 
-                                    val myUuid = UUID.randomUUID()
-                                    val myUuidAsString = myUuid.toString()
+            // Kullanıcıyı Firestore'a kaydedin
+            val user = User(userId, userName, name, surName, age, email, password, height, weight, gender)
 
-                                    db.collection("users").document(myUuidAsString)
-                                        .set(user)
-                                        .addOnSuccessListener {
-                                            Log.d(TAG, "DocumentSnapshot successfully written!")
-                                            val intent = Intent(this, LoginActivity::class.java)
-                                            startActivity(intent)
-                                            finish() // RegisterActivity'yi kapatmak için
-                                        }
-                                        .addOnFailureListener { e ->
-                                            Log.w(TAG, "Error writing document", e)
-                                            // Başarısızlık durumunda gerekli işlemler yapılabilir
-                                        }
-                                }
-                            }
-                            .addOnFailureListener { exception ->
-                                Log.w(TAG, "Error getting documents: ", exception)
-                                // Hata durumunda gerekli işlemler yapılabilir
-                            }
-                    }
+            db.collection("users").document(userId)
+                .set(user)
+                .addOnSuccessListener {
+                    Log.d(TAG, "DocumentSnapshot successfully written!")
+                    val intent = Intent(this, LoginActivity::class.java)
+                    startActivity(intent)
+                    finish() // RegisterActivity'yi kapatmak için
                 }
-                .addOnFailureListener { exception ->
-                    Log.w(TAG, "Error getting documents: ", exception)
-                    // Hata durumunda gerekli işlemler yapılabilir
+                .addOnFailureListener { e ->
+                    Log.w(TAG, "Error writing document", e)
+                    // Başarısızlık durumunda gerekli işlemler yapılabilir
                 }
         }
     }

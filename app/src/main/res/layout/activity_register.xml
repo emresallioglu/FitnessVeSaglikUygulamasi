@@ -162,7 +162,7 @@
             android:id="@+id/registerButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Kayıt Ol"
+            android:text="Register"
             android:backgroundTint="@color/button_login_color"
             android:textColor="@android:color/white"
             android:padding="12dp"
