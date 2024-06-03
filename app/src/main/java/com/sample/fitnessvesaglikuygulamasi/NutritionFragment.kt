@@ -158,11 +158,11 @@ class NutritionFragment : Fragment() {
         userSleepTimes: Pair<String, String>?
     ): String {
         val activityDescriptions = userActivitiesWithNames.joinToString { "${it.second}: ${it.first.caloriesBurned} kalori değerinde aktivite." }
-        val goalDescriptions = userGoals.joinToString { "${it.goal}: ${it.goal_description} (Completed: ${it.isCompleted})" }
+        val goalDescriptions = userGoals.joinToString { "${it.goal}: ${it.goal_description} (Tamamlandı mı: ${it.isCompleted}" }
         val sleepDescriptions = if (userSleepTimes != null) {
-            "Uyku Zamanı: ${userSleepTimes.first}, Uyanma Zamanı: ${userSleepTimes.second}"
+            "Uyanma Zamanı: ${userSleepTimes.second}, Uyku Zamanı: ${userSleepTimes.first} "
         } else {
-            "Uyku Zamanı: Bilinmiyor, Uyanma Zamanı: Bilinmiyor"
+            "Uyanma Zamanı: Bilinmiyor, Uyku Zamanı: Bilinmiyor"
         }
 
         return """
@@ -176,11 +176,11 @@ class NutritionFragment : Fragment() {
             Hedefler: $goalDescriptions
             $sleepDescriptions
 
-            Programı kullanıcının hedefine göre yaz. Diğer bilgileri de göz önünde bulundur.
+            Programları kullanıcının Hedefler'ine göre yaz. Yaş, Boy, Kilo, Cinsiyet bilgilerini de göz önünde bulundur.
             Bu bilgilerle sadece denemelik bir diyet ve egzersiz programı oluşturabilir misin? Egzersiz programını aktivitelerle oluştur. 
             Diyet programını uyku saatleriyle oluştur. Öğün sayısını abartma, diyet programı yaz.
-            Sade programları yaz, başka bilgi yazma. Başlığa "Denemelik" yazma, Diyet Programı ve Egzersiz Programı yaz.
-            Hiçbir şekilde sona not yazma sadece programları göster.
+            Sadece programları yaz, başka bilgi yazma. Başlığa "Denemelik" yazma, Diyet Programı ve Egzersiz Programı yaz.
+            Hiçbir şekilde not yazma sadece programları göster.
         """.trimIndent()
     }
 
