@@ -41,7 +41,8 @@ class HomeFragment : Fragment() {
         )
 
         viewLifecycleOwner.lifecycleScope.launch {
-            val response = generativeModel.generateContent("Maksimum 10 cümlelik, fitness ve spor, insan sağlığı için Motivasyon sözü yazar mısın?")
+            val response = generativeModel.generateContent("Maksimum 10 cümlelik, fitness ve spor, insan sağlığı için Motivasyon sözü yazar mısın?" +
+                    "Başlık verme sadece paragrafı yaz.")
             motivationMessage.text = response.text
         }
 
