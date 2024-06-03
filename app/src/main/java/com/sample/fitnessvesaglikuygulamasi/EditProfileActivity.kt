@@ -60,8 +60,15 @@ class EditProfileActivity : AppCompatActivity() {
         val height = editTextHeight.text.toString().toDoubleOrNull()
         val weight = editTextWeight.text.toString().toDoubleOrNull()
 
-        if (height == null || weight == null) {
-            Toast.makeText(this, "Lütfen geçerli boy ve kilo girin", Toast.LENGTH_SHORT).show()
+        // Boş değer kontrolü
+        if (name.isBlank() || surname.isBlank() || height == null || weight == null) {
+            Toast.makeText(this, "Lütfen tüm alanları doldurun", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        // E-posta format kontrolü
+        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            Toast.makeText(this, "Lütfen geçerli bir e-posta adresi girin", Toast.LENGTH_SHORT).show()
             return
         }
 
