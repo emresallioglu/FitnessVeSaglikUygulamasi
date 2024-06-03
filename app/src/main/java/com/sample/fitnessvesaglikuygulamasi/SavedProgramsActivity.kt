@@ -9,6 +9,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
@@ -59,6 +60,7 @@ class SavedProgramsActivity : AppCompatActivity() {
         val userId = GlobalVariables.currentUser?.id ?: return
         val querySnapshot = db.collection("diet_lists")
             .whereEqualTo("userId", userId)
+            .orderBy("timestamp", Query.Direction.DESCENDING) // Sıralama işlemi burada yapılıyor
             .get().await()
 
         if (querySnapshot.isEmpty) {
@@ -75,6 +77,4 @@ class SavedProgramsActivity : AppCompatActivity() {
             }
         }
     }
-
-
 }
